@@ -1,26 +1,58 @@
 import React from 'react';
-import logo from './logo.svg';
+import Wizard from './components/Wizard';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAlignJustify, faQuestionCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import './App.css';
 
-function App() {
+function Questionario() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <div>Questionário</div>
   );
+}
+
+function Pergunta() {
+  return (
+    <div>Pergunta</div>
+  );
+}
+
+function Fim() {
+  return (
+    <div>Fim</div>
+  );
+}
+
+class App extends React.Component {
+    constructor(props) {
+      super(props);
+      this.steps = [
+        {
+          title: 'Questionário',
+          icon: <FontAwesomeIcon icon={faAlignJustify} />,
+          component: <Questionario />
+        },
+        {
+          title: 'Pergunta',
+          icon: <FontAwesomeIcon icon={faQuestionCircle} />,
+          component: <Pergunta />
+        },
+        {
+          title: 'Fim',
+          icon: <FontAwesomeIcon icon={faCheckCircle} />,
+          component: <Fim />
+        }
+      ];
+    }
+
+    render() {
+      return (
+        <div className="App">
+         <div style={{ width: '500px', height: '500px' }}>
+          <Wizard steps={this.steps} />
+          </div>
+        </div>
+      );
+    }
 }
 
 export default App;
