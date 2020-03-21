@@ -25,12 +25,13 @@ class WizardItemHeader extends React.Component {
                 className={ classHeader }
                 onMouseOver={ this.toggleHover }
                 onMouseLeave={ this.toggleHover }
-                onClick={ this.props.handleClick }
-            >
+                onClick={ this.props.handleClick } >
+
                 <div class="icon">
                     { this.props.icon }
                 </div>
                 { this.props.title }
+                
             </a>
         );
     }

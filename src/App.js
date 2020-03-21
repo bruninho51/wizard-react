@@ -47,8 +47,8 @@ class App extends React.Component {
     render() {
       return (
         <div className="App">
-         <div style={{ width: '500px', height: '500px' }}>
-          <Wizard steps={this.steps} />
+          <div style={{ width: '500px', height: '500px' }}>
+            <Wizard steps={this.steps} />
           </div>
         </div>
       );

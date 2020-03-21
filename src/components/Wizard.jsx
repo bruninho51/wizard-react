@@ -7,27 +7,37 @@ import './wizard.css';
 
 function NextButton(props) {
 
-    let hide = props.current === props.pages - 1;
+    let disable = props.current === props.pages - 1;
     return (
         <button 
             onClick={ () => props.changePage(+1) } 
             className="btn btn-primary" 
-            disabled={hide}
-        >
+            disabled={disable} >
             Next
         </button>
     );
 }
 
 function PrevButton(props) {
-    let hide = props.current === 0;
+    let disable = props.current === 0;
     return (
         <button 
             onClick={ () => props.changePage(-1) } 
             className="btn btn-primary" 
-            disabled={hide}
-        >
+            disabled={disable} >
             Prev
+        </button>
+    );
+}
+
+function FinishButton(props) {
+    let disable = props.current != props.pages - 1;
+    return (
+        <button 
+            onClick={ () => props.changePage(+1) } 
+            className="btn btn-primary" 
+            disabled={disable} >
+            Finish
         </button>
     );
 }
@@ -56,17 +66,6 @@ class Wizard extends React.Component {
         });
     }
 
-    _prev = (props) => {
-        return this.state.current > 0 ?
-            (<button onClick={ () => this.changePage(-1) } className="btn btn-primary">Prev</button>) : null;
-    }
-
-    _finish = () => {
-        return (
-            <button className="btn btn-primary">Finish</button>
-        );
-    }
-
     render() {
         return (
             <section className="wizard">
@@ -77,8 +76,7 @@ class Wizard extends React.Component {
                             title={step.title} 
                             icon={step.icon}
                             current={i === this.state.current}
-                            handleClick={ () => this.setCurrent(i) }
-                        />
+                            handleClick={ () => this.setCurrent(i) } />
                     ))}
                 </header>
                 <div className="wizard-body">
@@ -86,20 +84,22 @@ class Wizard extends React.Component {
                         <WizardItemBody 
                             key={i}
                             current={i === this.state.current}
-                            component={step.component}
-                        />
+                            component={step.component} />
                     ))}
                 </div>
                 <footer className="wizard-footer d-flex flex-row-reverse">
-                    {this._finish()}
+                    <FinishButton 
+                        current={ this.state.current }
+                        pages={ this.props.steps.length }
+                        changePage={ this.changePage } />
                     <NextButton 
                         current={ this.state.current } 
                         pages={ this.props.steps.length } 
-                        changePage={ this.changePage }/>
+                        changePage={ this.changePage } />
                     <PrevButton 
                         current={ this.state.current }
                         pages={ this.props.steps.length }
-                        changePage={ this.changePage }/>
+                        changePage={ this.changePage } />
                 </footer>
             </section>
         );
